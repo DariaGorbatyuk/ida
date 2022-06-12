@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="app container">
+    <div class="app__top">
+      <h1 class="app__title">Добавление товара</h1>
+    </div>
+    <div class="app__content">
+      <app-add-item-form></app-add-item-form>
+      <transition-group
+        name="products"
+        v-show="productStore.productList.length > 0"
+        tag="ul"
+        class="app_items-list"
+      >
+        <li v-for="product in productStore.productList" :key="product.id">
+          <app-card :item="product"></app-card>
+        </li>
+      </transition-group>
+      <app-loader v-if="productStore.isLoading"></app-loader>
+    </div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
+<script setup>
+import AppAddItemForm from "@/components/AppAddItemForm.vue";
+import AppCard from "@/components/AppCard.vue";
+import AppLoader from "@/components/AppLoader";
+import { useProductStore } from "@/stores/productsStore";
 
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
+const productStore = useProductStore();
+
+productStore.initProductList();
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss" scoped>
+.container {
+  max-width: 1440px;
+  padding: 0 32px;
+
+  @media screen and (max-width: var(--vp-1023)) {
+    padding: 20px;
+  }
+}
+
+.app {
+  .app__title {
+  }
 }
 </style>
