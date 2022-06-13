@@ -72,7 +72,7 @@
 <script setup>
 import useVuelidate from "@vuelidate/core";
 import { numeric, required } from "@vuelidate/validators";
-import { onUpdated, reactive } from "vue";
+import { reactive } from "vue";
 import { translate } from "@/helpers/translate";
 import { nanoid } from "nanoid";
 import { useProductStore } from "@/stores/productsStore";
@@ -91,13 +91,7 @@ const rules = {
   price: { required, numeric },
 };
 const v$ = useVuelidate(rules, state);
-// const isDisabled = computed(
-//   () =>
-//     !(
-//       v$.value.$errors.length > 0 ||
-//       (!!state.name && !!state.link && !!state.price)
-//     )
-// );
+
 function clearForm() {
   state.name = "";
   state.link = "";
@@ -119,9 +113,6 @@ async function submitForm() {
   clearForm();
   v$.value.$reset();
 }
-onUpdated(() => {
-  console.log(v$.value);
-});
 </script>
 
 <style scoped lang="scss">
@@ -133,6 +124,8 @@ onUpdated(() => {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  position: sticky;
+  top: 0;
 }
 
 .form__field {

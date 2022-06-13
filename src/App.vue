@@ -40,7 +40,8 @@ productStore.initProductList();
 <style lang="scss" scoped>
 .container {
   max-width: 1440px;
-  padding: 0 32px;
+  padding-left: 32px;
+  padding-right: 32px;
   margin-left: auto;
   margin-right: auto;
 
@@ -50,8 +51,12 @@ productStore.initProductList();
 }
 
 .app {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
-
+.app__top {
+  margin-bottom: 16px;
+}
 .app__title {
   font-family: var(--font);
   font-style: normal;
@@ -76,6 +81,10 @@ productStore.initProductList();
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+
+  li {
+    display: flex;
+  }
 }
 
 .app__empty-text {

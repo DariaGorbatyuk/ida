@@ -8,17 +8,17 @@
       <p class="card__text" v-if="item.description">
         {{ item.description }}
       </p>
-      <span class="card__price">{{ item.price }}</span>
-      <transition name="button">
-        <button
-          class="card__btn"
-          type="button"
-          aria-label="Удалить товар"
-          @click="removeItem(item.id)"
-        >
-          <app-icon-delete></app-icon-delete>
-        </button>
-      </transition>
+      <span class="card__price"
+        >{{ item.price.toLocaleString("ru") }}&nbsp;руб.</span
+      >
+      <button
+        class="card__btn"
+        type="button"
+        aria-label="Удалить товар"
+        @click="removeItem(item.id)"
+      >
+        <app-icon-delete></app-icon-delete>
+      </button>
     </div>
   </div>
 </template>
@@ -60,11 +60,17 @@ function removeItem(id) {
   &:focus {
     cursor: pointer;
     transform: scale(1.02);
+
+    .card__btn {
+      display: block;
+    }
   }
 }
 
 .card__img {
   height: 200px;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -115,5 +121,7 @@ function removeItem(id) {
   box-shadow: 0 2px 4px rgba(white, 0.1);
   border-radius: 10px;
   cursor: pointer;
+  display: none;
+  transition: opacity 300ms ease-in;
 }
 </style>
