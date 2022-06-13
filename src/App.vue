@@ -9,7 +9,7 @@
         name="products"
         v-show="productStore.productList.length > 0"
         tag="ul"
-        class="app_items-list"
+        class="app__items-list"
       >
         <li v-for="product in productStore.productList" :key="product.id">
           <app-card :item="product"></app-card>
@@ -35,6 +35,8 @@ productStore.initProductList();
 .container {
   max-width: 1440px;
   padding: 0 32px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media screen and (max-width: var(--vp-1023)) {
     padding: 20px;
@@ -42,7 +44,31 @@ productStore.initProductList();
 }
 
 .app {
-  .app__title {
-  }
+}
+
+.app__title {
+  font-family: var(--font);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--color-eclipse);
+  margin-top: 0;
+}
+
+.app__content {
+  display: grid;
+  grid-template-columns: minmax(280px, 332px) 1fr;
+  column-gap: 16px;
+  align-items: flex-start;
+}
+
+.app__items-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 </style>

@@ -11,11 +11,27 @@
     font-weight: 600;
     font-family: "Source Sans Pro";
     font-display: swap;
-    src: url("./fonts/SourceSansPro-Regular.woff2") format("woff2")
+    src: url("./fonts/SourceSansPro-SemiBold.woff2") format("woff2")
+}
+@font-face {
+    font-style: normal;
+    font-weight: 600;
+    font-family: "Inter";
+    font-display: swap;
+    src: url("./fonts/Inter-SemiBold.woff2") format("woff2")
 }
 
 :root {
     --font: 'Source Sans Pro', Arial, sans-serif;
+    --font-inter: "Inter", Arial, sans-serif;
+    --color-eclipse: #3F3F3F;
+    --color-whisper: #E5E5E5;
+    --color-whisper-2: #EEEEEE;
+    --color-pink-swan: #B4B4B4;
+    --color-floral-white: #FFFEFB;
+    --color-light-coral: #FF8484;
+    --color-gun-powder: #49485E;
+    --color-amulet: #7BAE73;
     --vp-1023: 1023px;
     --vp-767: 767px;
 }
@@ -30,6 +46,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 *,
 *::before,
 *::after {
@@ -44,7 +61,7 @@ body {
     width: 100%;
     height: 100%;
     color: black;
-    background: white;
+    background: var(--color-whisper);
     transition: color 0.5s, background-color 0.5s;
     line-height: 1.6;
     font-family: var(--font);
@@ -60,4 +77,8 @@ body {
     height: 1px;
     margin: -1px;
     clip: rect(0 0 0 0);
+}
+
+img {
+    max-width: 100%;
 }
