@@ -5,7 +5,7 @@
     </div>
     <div class="card__content">
       <h2 class="card__title">{{ item.name }}</h2>
-      <p class="card__text">
+      <p class="card__text" v-if="item.description">
         {{ item.description }}
       </p>
       <span class="card__price">{{ item.price }}</span>

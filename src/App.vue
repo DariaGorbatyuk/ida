@@ -15,6 +15,12 @@
           <app-card :item="product"></app-card>
         </li>
       </transition-group>
+      <p
+        class="app__empty-text"
+        v-if="productStore.productList.length === 0 && !productStore.isLoading"
+      >
+        Список совсем пуст:( Добавьте что-нибудь
+      </p>
       <app-loader v-if="productStore.isLoading"></app-loader>
     </div>
   </div>
@@ -70,5 +76,15 @@ productStore.initProductList();
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+}
+
+.app__empty-text {
+  font-family: var(--font);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--color-eclipse);
+  text-align: center;
 }
 </style>

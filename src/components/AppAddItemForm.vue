@@ -8,6 +8,7 @@
         id="name"
         placeholder="Введите наименование товара"
         v-model="state.name"
+        :class="{ error: v$.name.$errors.length }"
       />
       <small
         class="form__error-massage"
@@ -29,13 +30,14 @@
       </textarea>
     </div>
     <div class="form__field">
-      <label for="link">Ссылка на изображение товара</label>
+      <label for="link" class="required">Ссылка на изображение товара</label>
       <input
         v-model="state.link"
         type="text"
         name="link"
         id="link"
         placeholder="Введите ссылку"
+        :class="{ error: v$.link.$errors.length }"
       />
       <small
         class="form__error-massage"
@@ -45,13 +47,14 @@
       >
     </div>
     <div class="form__field">
-      <label for="price">Цена товара</label>
+      <label for="price" class="required">Цена товара</label>
       <input
         v-model="state.price"
         type="text"
         name="price"
         id="price"
         placeholder="Введите цену"
+        :class="{ error: v$.price.$errors.length }"
       />
       <small
         class="form__error-massage"
@@ -60,11 +63,7 @@
         >{{ translate[error.$message] }}</small
       >
     </div>
-    <button
-      type="submit"
-      class="form__submit"
-      :disabled="v$.$errors.length > 0"
-    >
+    <button type="submit" class="form__submit" :disabled="v$.$invalid">
       Добавить товар
     </button>
   </form>
@@ -73,7 +72,7 @@
 <script setup>
 import useVuelidate from "@vuelidate/core";
 import { numeric, required } from "@vuelidate/validators";
-import { reactive } from "vue";
+import { onUpdated, reactive } from "vue";
 import { translate } from "@/helpers/translate";
 import { nanoid } from "nanoid";
 import { useProductStore } from "@/stores/productsStore";
@@ -92,6 +91,19 @@ const rules = {
   price: { required, numeric },
 };
 const v$ = useVuelidate(rules, state);
+// const isDisabled = computed(
+//   () =>
+//     !(
+//       v$.value.$errors.length > 0 ||
+//       (!!state.name && !!state.link && !!state.price)
+//     )
+// );
+function clearForm() {
+  state.name = "";
+  state.link = "";
+  state.price = "";
+  state.description = "";
+}
 
 async function submitForm() {
   const isFormCorrect = await v$.value.$validate();
@@ -104,7 +116,12 @@ async function submitForm() {
     price: state.price,
   };
   productStore.addProduct(newProduct);
+  clearForm();
+  v$.value.$reset();
 }
+onUpdated(() => {
+  console.log(v$.value);
+});
 </script>
 
 <style scoped lang="scss">
@@ -145,9 +162,13 @@ input {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding-left: 16px;
-  border: none;
   width: 100%;
   height: 36px;
+  border: 1px solid transparent;
+
+  &.error {
+    border: 1px solid var(--color-light-coral);
+  }
 
   &::placeholder {
     color: var(--color-pink-swan);
@@ -202,12 +223,29 @@ textarea {
   background: var(--color-floral-white);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  padding-left: 16px;
-  border: none;
+  padding: 10px 16px;
   resize: none;
+  border: 1px solid transparent;
 
   &::placeholder {
     color: var(--color-pink-swan);
+  }
+}
+
+.required {
+  position: relative;
+  padding-right: 6px;
+
+  &::after {
+    content: "";
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-light-coral);
+    border-radius: 50%;
+    right: 0;
+    top: 0;
+    display: block;
+    position: absolute;
   }
 }
 </style>
