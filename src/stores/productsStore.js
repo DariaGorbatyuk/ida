@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import data from "@/data";
 import { setTimer } from "@/helpers/setTimer";
+
 export const useProductStore = defineStore("productStore", {
   // arrow function recommended for full type inference
   state: () => {
@@ -17,6 +18,13 @@ export const useProductStore = defineStore("productStore", {
     },
     fillData() {
       this.productList = [...data];
+    },
+    addProduct(newProduct) {
+      this.productList.push(newProduct);
+    },
+    removeProduct(id) {
+      const i = this.productList.findIndex((item) => item.id === id);
+      this.productList.splice(i, 1);
     },
   },
 });

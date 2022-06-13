@@ -24,6 +24,7 @@
         cols="30"
         rows="10"
         placeholder="Введите описание товара"
+        v-model="state.description"
       >
       </textarea>
     </div>
@@ -74,11 +75,15 @@ import useVuelidate from "@vuelidate/core";
 import { numeric, required } from "@vuelidate/validators";
 import { reactive } from "vue";
 import { translate } from "@/helpers/translate";
+import { nanoid } from "nanoid";
+import { useProductStore } from "@/stores/productsStore";
 
+const productStore = useProductStore();
 const state = reactive({
   name: "",
   link: "",
   price: "",
+  description: "",
 });
 
 const rules = {
@@ -89,11 +94,16 @@ const rules = {
 const v$ = useVuelidate(rules, state);
 
 async function submitForm() {
-  console.log(v$.value);
   const isFormCorrect = await v$.value.$validate();
-
   if (!isFormCorrect) return;
-
+  const newProduct = {
+    id: nanoid(),
+    name: state.name,
+    link: state.link,
+    description: state.description,
+    price: state.price,
+  };
+  productStore.addProduct(newProduct);
 }
 </script>
 

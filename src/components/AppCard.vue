@@ -1,17 +1,21 @@
 <template>
   <div class="card">
     <div class="card__img">
-      <img src="@/assets/img/default.png" alt="Фото товара" />
+      <img :src="imgPath" alt="Фото товара" />
     </div>
     <div class="card__content">
       <h2 class="card__title">{{ item.name }}</h2>
       <p class="card__text">
-        Довольно-таки интересное описание товара в несколько строк.
-        Довольно-таки интересное описание товара в несколько строк
+        {{ item.description }}
       </p>
-      <span class="card__price">10 000 руб.</span>
+      <span class="card__price">{{ item.price }}</span>
       <transition name="button">
-        <button class="card__btn" type="button" aria-label="Удалить товар">
+        <button
+          class="card__btn"
+          type="button"
+          aria-label="Удалить товар"
+          @click="removeItem(item.id)"
+        >
           <app-icon-delete></app-icon-delete>
         </button>
       </transition>
@@ -21,14 +25,23 @@
 
 <script setup>
 import AppIconDelete from "@/components/icons/AppIconDelete.vue";
-import { defineProps } from "vue";
+import { computed, defineProps } from "vue";
+import { useProductStore } from "@/stores/productsStore";
 
-defineProps({
+const productStore = useProductStore();
+const props = defineProps({
   item: {
     type: Object,
     required: true,
   },
 });
+const imgPath = computed(
+  () => props.item.link ?? require("@/assets/img/default.png")
+);
+
+function removeItem(id) {
+  productStore.removeProduct(id);
+}
 </script>
 
 <style scoped lang="scss">
