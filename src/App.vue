@@ -2,22 +2,23 @@
   <div class="app container">
     <div class="app__top">
       <h1 class="app__title">Добавление товара</h1>
+      <app-select></app-select>
     </div>
     <div class="app__content">
       <app-add-item-form></app-add-item-form>
       <transition-group
-        name="products"
-        v-show="productStore.productList.length > 0"
-        tag="ul"
-        class="app__items-list"
+          name="products"
+          v-show="productStore.productList.length > 0"
+          tag="ul"
+          class="app__items-list"
       >
         <li v-for="product in productStore.productList" :key="product.id">
           <app-card :item="product"></app-card>
         </li>
       </transition-group>
       <p
-        class="app__empty-text"
-        v-if="productStore.productList.length === 0 && !productStore.isLoading"
+          class="app__empty-text"
+          v-if="productStore.productList.length === 0 && !productStore.isLoading"
       >
         Список совсем пуст:( Добавьте что-нибудь
       </p>
@@ -30,11 +31,15 @@
 import AppAddItemForm from "@/components/AppAddItemForm.vue";
 import AppCard from "@/components/AppCard.vue";
 import AppLoader from "@/components/AppLoader";
-import { useProductStore } from "@/stores/productsStore";
+import {useProductStore} from "@/stores/productsStore";
+import {onMounted} from "vue";
+import AppSelect from "@/components/AppSelect.vue"
 
 const productStore = useProductStore();
+onMounted(() => {
+  productStore.initProductList();
+});
 
-productStore.initProductList();
 </script>
 
 <style lang="scss" scoped>
@@ -54,9 +59,14 @@ productStore.initProductList();
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
 .app__top {
   margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 15px;
 }
+
 .app__title {
   font-family: var(--font);
   font-style: normal;

@@ -8,6 +8,7 @@ export const useProductStore = defineStore("productStore", {
     return {
       isLoading: false,
       productList: [],
+      defaultList: []
     };
   },
   actions: {
@@ -26,5 +27,14 @@ export const useProductStore = defineStore("productStore", {
       const i = this.productList.findIndex((item) => item.id === id);
       this.productList.splice(i, 1);
     },
+    sortByMin(){
+      this.productList.sort((a, b) => a.price - b.price)
+    },
+    sortByMax(){
+      this.productList.sort((a, b) => b.price - a.price)
+    },
+    sortByName(){
+      this.productList.sort((a, b)=> a.name.localeCompare(b.name))
+    }
   },
 });
