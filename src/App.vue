@@ -7,18 +7,18 @@
     <div class="app__content">
       <app-add-item-form></app-add-item-form>
       <transition-group
-          name="products"
-          v-show="productStore.productList.length > 0"
-          tag="ul"
-          class="app__items-list"
+        name="products"
+        v-show="productStore.productList.length > 0"
+        tag="ul"
+        class="app__items-list"
       >
         <li v-for="product in productStore.productList" :key="product.id">
           <app-card :item="product"></app-card>
         </li>
       </transition-group>
       <p
-          class="app__empty-text"
-          v-if="productStore.productList.length === 0 && !productStore.isLoading"
+        class="app__empty-text"
+        v-if="productStore.productList.length === 0 && !productStore.isLoading"
       >
         Список совсем пуст:( Добавьте что-нибудь
       </p>
@@ -31,9 +31,9 @@
 import AppAddItemForm from "@/components/AppAddItemForm.vue";
 import AppCard from "@/components/AppCard.vue";
 import AppLoader from "@/components/AppLoader";
-import {useProductStore} from "@/stores/productsStore";
-import {onMounted} from "vue";
-import AppSelect from "@/components/AppSelect.vue"
+import { useProductStore } from "@/stores/productsStore";
+import { onMounted } from "vue";
+import AppSelect from "@/components/AppSelect.vue";
 
 const productStore = useProductStore();
 onMounted(() => {
@@ -50,7 +50,7 @@ onMounted(() => {
   margin-left: auto;
   margin-right: auto;
 
-  @media screen and (max-width: var(--vp-1023)) {
+  @media screen and (max-width: 1023px) {
     padding: 20px;
   }
 }
@@ -94,6 +94,14 @@ onMounted(() => {
 
   li {
     display: flex;
+  }
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr;
   }
 }
 
