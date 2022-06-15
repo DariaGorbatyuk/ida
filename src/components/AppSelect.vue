@@ -1,23 +1,23 @@
 <template>
   <div class="select">
     <button type="button" class="select__input" @click="isOpenSelect = !isOpenSelect"
-            v-click-outside="onClickOutside"
+
     >
       <span>{{currentText}}</span>
       <img src="@/assets/img/arrow.svg" alt="">
     </button>
-    <ul class="select__list" :class="{open: isOpenSelect}">
+    <ul class="select__list" v-show="isOpenSelect" v-click-outside="onClickOutside">
       <li>
-        <button class="select__btn" ref="btnMin" type="button" @click="sortByMin">По цене min</button>
+        <button class="select__btn" ref="btnMin"  type="button" @click="sortByMin($event)">По цене min</button>
       </li>
       <li>
-        <button class="select__btn" ref="btnMax" type="button" @click="sortByMax">По цене max</button>
+        <button class="select__btn" ref="btnMax"  type="button" @click="sortByMax($event)">По цене max</button>
       </li>
       <li>
-        <button class="select__btn" ref="btnName" type="button" @click="sortByName">По наименованию</button>
+        <button class="select__btn" ref="btnName" type="button" @click="sortByName($event)">По наименованию</button>
       </li>
       <li>
-        <button class="select__btn active" ref="btnDefault" type="button" @click="sortByDefault">По умолчанию</button>
+        <button class="select__btn active" ref="btnDefault" type="button" @click="sortByDefault($event)">По умолчанию</button>
       </li>
     </ul>
   </div>
@@ -25,38 +25,53 @@
 
 <script setup>
 import {useProductStore} from "@/stores/productsStore";
-import {ref} from "vue";
-
+import { onMounted, reactive, ref } from "vue";
+import vClickOutside from "click-outside-vue3";
 const productStore = useProductStore()
 const isOpenSelect = ref(false)
 const btnMin = ref(null)
 const btnMax = ref(null)
 const btnName = ref(null)
 const btnDefault = ref(null)
+const btnsArray = [btnMin, btnMax, btnName, btnDefault]
+function resetClasses(){
+  btnsArray.forEach((btn)=>btn.value.classList.remove('active'))
+}
 let currentText = ref('По умолчанию')
-function sortByMin() {
+function sortByMin(evt) {
   productStore.sortByMin()
-  currentText.value = btnMin.value.textContent
-  btnMin.value.classList.add('active')
+  currentText.value = evt.target.textContent
+  resetClasses()
+  evt.target.classList.add('active')
+  isOpenSelect.value = !isOpenSelect.value
 }
 
-function sortByMax() {
+function sortByMax(evt) {
   productStore.sortByMax()
-  currentText.value = btnMax.value.textContent
-
+  currentText.value = evt.target.textContent
+  resetClasses()
+  evt.target.classList.add('active')
+  isOpenSelect.value = !isOpenSelect.value
 }
 
-function sortByName() {
+function sortByName(evt) {
   productStore.sortByName()
-  currentText.value = btnName.value.textContent
+  currentText.value = evt.target.textContent
+  resetClasses()
+  evt.target.classList.add('active')
+  isOpenSelect.value = !isOpenSelect.value
 }
 function onClickOutside(){
   console.log('asdfsdaf')
 }
 
-function sortByDefault() {
-
+function sortByDefault(evt) {
+  currentText.value = evt.target.textContent
+  resetClasses()
+  evt.target.classList.add('active')
+  isOpenSelect.value = !isOpenSelect.value
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -95,11 +110,6 @@ function sortByDefault() {
   position: absolute;
   top: 40px;
   left: -5px;
-  display: none;
-
-  &.open {
-    display: block;
-  }
 }
 
 .select__btn {

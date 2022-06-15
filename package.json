@@ -10,10 +10,10 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.0-alpha.41",
     "@vuelidate/validators": "^2.0.0-alpha.29",
+    "click-outside-vue3": "^4.0.1",
     "core-js": "^3.8.3",
     "nanoid": "^4.0.0",
     "pinia": "^2.0.14",
-    "v-click-outside": "^3.2.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {

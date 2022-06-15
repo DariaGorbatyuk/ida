@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createPinia } from "pinia";
-import vClickOutside from 'v-click-outside'
+import vClickOutside from "click-outside-vue3"
 
 
 const app = createApp(App);
