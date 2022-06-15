@@ -38,6 +38,7 @@ import AppSelect from "@/components/AppSelect.vue"
 const productStore = useProductStore();
 onMounted(() => {
   productStore.initProductList();
+
 });
 
 </script>
