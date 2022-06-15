@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card__img">
-      <img :src="imgPath" alt="Фото товара" />
+      <img :src="imgPath" alt="Фото товара"/>
     </div>
     <div class="card__content">
       <h2 class="card__title">{{ item.name }}</h2>
@@ -9,13 +9,13 @@
         {{ item.description }}
       </p>
       <span class="card__price"
-        >{{ item.price.toLocaleString("ru") }}&nbsp;руб.</span
+      >{{ item.price.toLocaleString("ru") }}&nbsp;руб.</span
       >
       <button
-        class="card__btn"
-        type="button"
-        aria-label="Удалить товар"
-        @click="removeItem(item.id)"
+          class="card__btn"
+          type="button"
+          aria-label="Удалить товар"
+          @click="removeItem(item.id)"
       >
         <app-icon-delete></app-icon-delete>
       </button>
@@ -25,8 +25,8 @@
 
 <script setup>
 import AppIconDelete from "@/components/icons/AppIconDelete.vue";
-import { computed, defineProps } from "vue";
-import { useProductStore } from "@/stores/productsStore";
+import {computed, defineProps, onMounted} from "vue";
+import {useProductStore} from "@/stores/productsStore";
 
 const productStore = useProductStore();
 const props = defineProps({
@@ -36,7 +36,7 @@ const props = defineProps({
   },
 });
 const imgPath = computed(
-  () => props.item.link ?? require("@/assets/img/default.png")
+    () => props.item.link ?? require("@/assets/img/default.png")
 );
 
 function removeItem(id) {
@@ -123,5 +123,9 @@ function removeItem(id) {
   cursor: pointer;
   display: none;
   transition: opacity 300ms ease-in;
+
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
 }
 </style>

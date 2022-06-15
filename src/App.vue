@@ -5,7 +5,7 @@
       <app-select></app-select>
     </div>
     <div class="app__content">
-      <app-add-item-form></app-add-item-form>
+      <app-add-item-form class="app__form"></app-add-item-form>
       <transition-group
           name="products"
           v-show="productStore.productList.length > 0"
@@ -43,6 +43,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.products-enter-from,
+.products-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.products-enter-active,
+.products-leave-active,
+.products-move{
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 .container {
   max-width: 1440px;
   padding-left: 32px;
@@ -50,8 +60,12 @@ onMounted(() => {
   margin-left: auto;
   margin-right: auto;
 
-  @media screen and (max-width: var(--vp-1023)) {
+  @media screen and (max-width: 1023px) {
     padding: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 10px;
   }
 }
 
@@ -75,13 +89,23 @@ onMounted(() => {
   line-height: 1.2;
   color: var(--color-eclipse);
   margin-top: 0;
+
+  @media screen and (max-width: 767px) {
+   font-size: 17px;
+  }
+
 }
 
 .app__content {
   display: grid;
-  grid-template-columns: minmax(280px, 332px) 1fr;
+  grid-template-columns: minmax(250px, 332px) 1fr;
   column-gap: 16px;
   align-items: flex-start;
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr
+  }
+
 }
 
 .app__items-list {
@@ -95,6 +119,22 @@ onMounted(() => {
   li {
     display: flex;
   }
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 510px) {
+    grid-template-columns: 1fr
+  }
+
+}
+
+.app__form {
+  @media screen and (max-width: 767px) {
+    margin-bottom: 20px;
+  }
+
 }
 
 .app__empty-text {

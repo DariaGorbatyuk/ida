@@ -19,13 +19,16 @@ export const useProductStore = defineStore("productStore", {
     },
     fillData() {
       this.productList = [...data];
+      this.default = [...data]
     },
     addProduct(newProduct) {
       this.productList.push(newProduct);
+      this.default.push(newProduct);
     },
     removeProduct(id) {
       const i = this.productList.findIndex((item) => item.id === id);
       this.productList.splice(i, 1);
+      this.default.splice(i, 1);
     },
     sortByMin(){
       this.productList.sort((a, b) => a.price - b.price)
@@ -35,6 +38,9 @@ export const useProductStore = defineStore("productStore", {
     },
     sortByName(){
       this.productList.sort((a, b)=> a.name.localeCompare(b.name))
+    },
+    sortByDefault(){
+      return this.productList = this.default
     }
   },
 });
