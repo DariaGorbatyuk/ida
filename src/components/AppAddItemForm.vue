@@ -111,6 +111,7 @@ async function submitForm() {
     link: state.link,
     description: state.description,
     price: state.price,
+    idea: true,
   };
   productStore.addProduct(newProduct);
   clearForm();

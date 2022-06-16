@@ -20,7 +20,7 @@ export const useProductStore = defineStore("productStore", {
     },
     fillData() {
       this.productList = [...data, ...getAllItems()];
-      this.default = [...data, ...getAllItems()]
+      this.default = [...this.productList]
     },
     addProduct(newProduct) {
       this.productList.push(newProduct);
