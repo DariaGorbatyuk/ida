@@ -62,10 +62,11 @@ function sortByName(evt) {
   isOpenSelect.value = !isOpenSelect.value
 }
 function onClickOutside(){
-  console.log('asdfsdaf')
+
 }
 
 function sortByDefault(evt) {
+  productStore.sortByDefault()
   currentText.value = evt.target.textContent
   resetClasses()
   evt.target.classList.add('active')

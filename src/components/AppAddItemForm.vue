@@ -4,6 +4,7 @@
       <label for="name" class="required">Наименование товара</label>
       <input
         type="text"
+        @blur="v$.name.$touch"
         name="name"
         id="name"
         placeholder="Введите наименование товара"
@@ -35,6 +36,7 @@
         v-model="state.link"
         type="text"
         name="link"
+        @blur="v$.link.$touch"
         id="link"
         placeholder="Введите ссылку"
         :class="{ error: v$.link.$errors.length }"
@@ -52,6 +54,7 @@
         v-model="state.price"
         type="text"
         name="price"
+        @blur="v$.price.$touch"
         id="price"
         placeholder="Введите цену"
         :class="{ error: v$.price.$errors.length }"
@@ -126,6 +129,11 @@ async function submitForm() {
   row-gap: 16px;
   position: sticky;
   top: 0;
+
+  @media screen and (max-width: 767px) {
+    position: static;
+  }
+
 }
 
 .form__field {
@@ -161,6 +169,11 @@ input {
 
   &.error {
     border: 1px solid var(--color-light-coral);
+  }
+
+  &:focus{
+    outline: none;
+    border: 1px solid var(--color-amulet);
   }
 
   &::placeholder {
@@ -222,6 +235,10 @@ textarea {
 
   &::placeholder {
     color: var(--color-pink-swan);
+  }
+  &:focus{
+    outline: none;
+    border: 1px solid var(--color-amulet);
   }
 }
 

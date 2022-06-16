@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import data from "@/data";
 import { setTimer } from "@/helpers/setTimer";
+import {setItem, getAllItems, removeItem} from "@/helpers/localStore";
 
 export const useProductStore = defineStore("productStore", {
   // arrow function recommended for full type inference
@@ -18,14 +19,19 @@ export const useProductStore = defineStore("productStore", {
       this.isLoading = false;
     },
     fillData() {
-      this.productList = [...data];
+      this.productList = [...data, ...getAllItems()];
+      this.default = [...data, ...getAllItems()]
     },
     addProduct(newProduct) {
       this.productList.push(newProduct);
+      this.default.push(newProduct);
+      setItem(newProduct.id, newProduct)
     },
     removeProduct(id) {
       const i = this.productList.findIndex((item) => item.id === id);
       this.productList.splice(i, 1);
+      this.default.splice(i, 1);
+      removeItem(id)
     },
     sortByMin(){
       this.productList.sort((a, b) => a.price - b.price)
@@ -35,6 +41,9 @@ export const useProductStore = defineStore("productStore", {
     },
     sortByName(){
       this.productList.sort((a, b)=> a.name.localeCompare(b.name))
+    },
+    sortByDefault(){
+      return this.productList = this.default
     }
   },
 });

@@ -5,20 +5,20 @@
       <app-select></app-select>
     </div>
     <div class="app__content">
-      <app-add-item-form></app-add-item-form>
+      <app-add-item-form class="app__form"></app-add-item-form>
       <transition-group
-        name="products"
-        v-show="productStore.productList.length > 0"
-        tag="ul"
-        class="app__items-list"
+          name="products"
+          v-show="productStore.productList.length > 0"
+          tag="ul"
+          class="app__items-list"
       >
         <li v-for="product in productStore.productList" :key="product.id">
           <app-card :item="product"></app-card>
         </li>
       </transition-group>
       <p
-        class="app__empty-text"
-        v-if="productStore.productList.length === 0 && !productStore.isLoading"
+          class="app__empty-text"
+          v-if="productStore.productList.length === 0 && !productStore.isLoading"
       >
         Список совсем пуст:( Добавьте что-нибудь
       </p>
@@ -31,18 +31,29 @@
 import AppAddItemForm from "@/components/AppAddItemForm.vue";
 import AppCard from "@/components/AppCard.vue";
 import AppLoader from "@/components/AppLoader";
-import { useProductStore } from "@/stores/productsStore";
-import { onMounted } from "vue";
-import AppSelect from "@/components/AppSelect.vue";
+import {useProductStore} from "@/stores/productsStore";
+import {onMounted} from "vue";
+import AppSelect from "@/components/AppSelect.vue"
 
 const productStore = useProductStore();
 onMounted(() => {
   productStore.initProductList();
+
 });
 
 </script>
 
 <style lang="scss" scoped>
+.products-enter-from,
+.products-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.products-enter-active,
+.products-leave-active,
+.products-move{
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 .container {
   max-width: 1440px;
   padding-left: 32px;
@@ -52,6 +63,10 @@ onMounted(() => {
 
   @media screen and (max-width: 1023px) {
     padding: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 10px;
   }
 }
 
@@ -75,13 +90,23 @@ onMounted(() => {
   line-height: 1.2;
   color: var(--color-eclipse);
   margin-top: 0;
+
+  @media screen and (max-width: 767px) {
+   font-size: 17px;
+  }
+
 }
 
 .app__content {
   display: grid;
-  grid-template-columns: minmax(280px, 332px) 1fr;
+  grid-template-columns: minmax(250px, 332px) 1fr;
   column-gap: 16px;
   align-items: flex-start;
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr
+  }
+
 }
 
 .app__items-list {
@@ -97,12 +122,20 @@ onMounted(() => {
   }
 
   @media screen and (max-width: 1023px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 767px) {
-    grid-template-columns: 1fr;
+  @media screen and (max-width: 510px) {
+    grid-template-columns: 1fr
   }
+
+}
+
+.app__form {
+  @media screen and (max-width: 767px) {
+    margin-bottom: 20px;
+  }
+
 }
 
 .app__empty-text {
