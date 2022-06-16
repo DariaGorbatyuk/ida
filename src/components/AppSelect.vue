@@ -66,6 +66,7 @@ function onClickOutside(){
 }
 
 function sortByDefault(evt) {
+  debugger
   productStore.sortByDefault()
   currentText.value = evt.target.textContent
   resetClasses()

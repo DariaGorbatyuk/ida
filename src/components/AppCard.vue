@@ -9,7 +9,7 @@
         {{ item.description }}
       </p>
       <span class="card__price"
-      >{{ item.price.toLocaleString("ru") }}&nbsp;руб.</span
+      >{{price}}&nbsp;руб.</span
       >
       <button
           class="card__btn"
@@ -38,6 +38,7 @@ const props = defineProps({
 const imgPath = computed(
     () => props.item.link ?? require("@/assets/img/default.png")
 );
+const price = computed(()=>Number(props.item.price).toLocaleString('ru'))
 
 function removeItem(id) {
   productStore.removeProduct(id);
