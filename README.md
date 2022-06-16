@@ -20,5 +20,11 @@ npm run build
 npm run lint
 ```
 
+### Node.js
+```
+v14.19.3
+```
+
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
