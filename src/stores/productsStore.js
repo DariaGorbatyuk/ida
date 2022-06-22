@@ -21,7 +21,11 @@ export const useProductStore = defineStore("productStore", {
       this.productList = [...data];
       this.default = [...data]
     },
-    addProduct(newProduct) {
+    async addProduct(newProduct) {
+      const response = await fetch(newProduct.link)
+      if(!response.ok){
+        newProduct.link = null
+      }
       this.productList.push(newProduct);
       this.default.push(newProduct);
     },
