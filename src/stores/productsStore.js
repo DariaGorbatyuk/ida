@@ -30,7 +30,6 @@ export const useProductStore = defineStore("productStore", {
       this.default.push(newProduct);
     },
     removeProduct(id) {
-       debugger
       const i = this.productList.findIndex((item) => item.id === id);
       this.productList.splice(i, 1);
       this.default.splice(i, 1);
