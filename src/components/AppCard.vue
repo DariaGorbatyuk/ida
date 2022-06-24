@@ -9,7 +9,7 @@
         {{ item.description }}
       </p>
       <span class="card__price"
-      >{{price}}&nbsp;руб.</span
+      >{{ price }}&nbsp;руб.</span
       >
       <button
           class="card__btn"
@@ -38,7 +38,7 @@ const props = defineProps({
 const imgPath = computed(
     () => props.item.link ?? require("@/assets/img/default.png")
 );
-const price = computed(()=>Number(props.item.price).toLocaleString('ru'))
+const price = computed(() => Number(props.item.price).toLocaleString('ru'))
 
 function removeItem(id) {
   productStore.removeProduct(id);
@@ -50,9 +50,8 @@ function removeItem(id) {
   width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
-  background-color: var(--color-floral-white);
-  box-shadow: 0 20px 30px rgba(white, 0.04), 0 6px 10px rgba(white, 0.02);
+  background: #FFFEFB;
+  box-shadow: 0 20px 30px rgba(black, 0.04), 0 6px 10px rgba(black, 0.02);
   border-radius: 4px;
   position: relative;
   transition: transform 300ms linear;
@@ -82,25 +81,26 @@ function removeItem(id) {
 
 .card__content {
   padding: 16px;
-  padding-top: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
   font: inherit;
   color: var(--color-eclipse);
   position: static;
+  flex-grow: 1;
 }
 
 .card__title {
   font-weight: 600;
   font-size: 20px;
   line-height: 1.2;
+  margin-bottom: 16px;
 }
 
 .card__text {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.2;
+  margin-bottom: 32px;
 }
 
 .card__price {

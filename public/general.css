@@ -32,6 +32,8 @@
     --color-light-coral: #FF8484;
     --color-gun-powder: #49485E;
     --color-amulet: #7BAE73;
+    --color-floral-white-1: #FAF9F7;
+    --background:  rgba(255, 254, 251, 0.8);
     --vp-1023: 1023;
     --vp-767: 767px;
 }
@@ -61,7 +63,7 @@ body {
     width: 100%;
     height: 100%;
     color: black;
-    background: var(--color-whisper);
+    background: var(--background);
     transition: color 0.5s, background-color 0.5s;
     line-height: 1.6;
     font-family: var(--font);

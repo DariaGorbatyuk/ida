@@ -122,14 +122,14 @@ async function submitForm() {
 <style scoped lang="scss">
 .form {
   background: var(--color-floral-white);
-  box-shadow: 0 20px 30px rgba(white, 0.04), 0 6px 10px rgba(white, 0.02);
+  box-shadow: 0 20px 30px rgba(black, 0.04), 0 6px 10px rgba(black, 0.02);
   border-radius: 4px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
   position: sticky;
-  top: 0;
+  top: 24px;
 
   @media screen and (max-width: 767px) {
     position: static;
