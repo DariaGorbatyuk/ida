@@ -1,12 +1,12 @@
 <template>
-  <div class="select">
+  <div class="select" v-click-outside="onClickOutside">
     <button type="button" class="select__input" @click="isOpenSelect = !isOpenSelect"
 
     >
       <span>{{ currentText }}</span>
       <img src="@/assets/img/arrow.svg" alt="">
     </button>
-    <ul class="select__list" v-show="isOpenSelect" v-click-outside="onClickOutside">
+    <ul class="select__list" v-if="isOpenSelect">
       <li>
         <button class="select__btn" :class="{'active':isCurrentSort==='minPrice'}" type="button"
                 @click="sortByMin($event)">По цене min
@@ -33,8 +33,7 @@
 
 <script setup>
 import {useProductStore} from "@/stores/productsStore";
-import {onMounted, reactive, ref} from "vue";
-import vClickOutside from "click-outside-vue3";
+import {ref} from "vue";
 
 const productStore = useProductStore()
 const isOpenSelect = ref(false)
@@ -43,32 +42,35 @@ let currentText = ref('По умолчанию')
 
 function sortByMin(evt) {
   productStore.sortByMin()
-  currentText.value = evt.target.textContent
+  currentText.value = evt.currentTarget.textContent
   isOpenSelect.value = !isOpenSelect.value
   isCurrentSort.value = 'minPrice'
 }
 
 function sortByMax(evt) {
   productStore.sortByMax()
-  currentText.value = evt.target.textContent
+  currentText.value = evt.currentTarget.textContent
   isOpenSelect.value = !isOpenSelect.value
   isCurrentSort.value = 'maxPrice'
 }
 
 function sortByName(evt) {
   productStore.sortByName()
-  currentText.value = evt.target.textContent
+  currentText.value = evt.currentTarget.textContent
   isOpenSelect.value = !isOpenSelect.value
   isCurrentSort.value = 'name'
 }
 
 function onClickOutside() {
-  isOpenSelect.value = !isOpenSelect.value
+  if (isOpenSelect.value) {
+    isOpenSelect.value = !isOpenSelect.value
+  }
+
 }
 
 function sortByDefault(evt) {
   productStore.sortByDefault()
-  currentText.value = evt.target.textContent
+  currentText.value = evt.currentTarget.textContent
   isOpenSelect.value = !isOpenSelect.value
   isCurrentSort.value = 'default'
 }
